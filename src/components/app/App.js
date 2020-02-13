@@ -9,7 +9,7 @@ import {FILTER_OPTION, FORM_OPTION} from "./enums";
 function App() {
     const INITIAL_FILENAME_STATE = "Choose file...";
     // web worker is not natively supported in CRA (create-react-app)
-    // work-around: https://medium.com/p/3718d2a1166b/responses/show
+    // work-around: https://medium.com/@danilog1905/how-to-use-web-workers-with-react-create-app-and-not-ejecting-in-the-attempt-3718d2a1166b
     const worker = new FilterImageDataWorker();
 
     // references to element on page
@@ -35,7 +35,7 @@ function App() {
     useEffect(() => {
         const canvas = canvasRef.current;
         const context = canvas.getContext("2d");
-        if (imageData === null) return; // ignore if image has been cleared or not set
+        if (imageData === null) return; // image not yet uploaded
         worker.postMessage({currentFilterOption, imageData});
         worker.addEventListener("message", e => {
             clearCanvas();
