@@ -1,0 +1,42 @@
+* { //https://colorhunt.co/palette/168200
+  --color-black: #4d4646;
+  --color-grey: #5b5656;
+  --color-green: #7fcd91;
+  --color-white: #f5eaea;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-grey);
+  min-height: 100vh;
+  color: var(--color-white);
+
+  main {
+    width: fit-content;
+    position: relative;
+
+    canvas {
+      background-color: var(--color-white);
+      height: 30vw;
+      width: 30vw;
+    }
+
+    .options {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1em;
+      width: fit-content;
+      position: absolute;
+      top: -50px;
+      left: 0;
+
+      > * {
+        margin-right: 1em;
+        height: 100%;
+      }
+    }
+  }
+}
