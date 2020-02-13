@@ -72,9 +72,7 @@ function App() {
                 break;
             case FORM_OPTION.SELECT:
                 const {value: filterOption} = e.target;
-                console.log(filterOption);
                 setCurrentFilterOption(filterOption);
-                console.log(selectRef.current);
                 break;
             default:
                 break;
