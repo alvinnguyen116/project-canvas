@@ -4,9 +4,6 @@ const optionToFunctionMap = new Map([
     [FILTER_OPTION.SEPIA, sepiaFilterByPixel],
     [FILTER_OPTION.GRAYSCALE, grayscaleFilterByPixel],
     [FILTER_OPTION.INVERT, invertFilterByPixel],
-    [FILTER_OPTION.RED, redFilterByPixel],
-    [FILTER_OPTION.GREEN, greenFilterByPixel],
-    [FILTER_OPTION.BLUE, blueFilterByPixel],
     [FILTER_OPTION.OPACITY, opacityFilterByPixel]
 ]);
 
@@ -54,21 +51,6 @@ function grayscaleFilterByPixel(r, g, b, a) {
 //https://www.homeandlearn.co.uk/extras/image/image-invert-colors.html
 function invertFilterByPixel(r, g, b, a) {
     return [255 - r, 255 - g, 255 - b, a];
-}
-
-function redFilterByPixel(r, g, b, a) {
-    const minR = 125;
-    return [r < minR ? 0 : r, g, b, a];
-}
-
-function greenFilterByPixel(r, g, b, a) {
-    const minG = 100;
-    return [r, g < minG ? 0 : g, b, a];
-}
-
-function blueFilterByPixel(r, g, b, a) {
-    const minB = 100;
-    return [r, g, b < minB ? 0 : b, a];
 }
 
 function opacityFilterByPixel(r, g, b, a) {

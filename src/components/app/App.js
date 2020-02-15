@@ -109,6 +109,7 @@ function App() {
             // adjust canvas's dimensions to image's
             canvas.height = height;
             canvas.width = width;
+            // TODO: set canvas height to a ratio of img.
             // draw final img in top left corner of canvas
             context.drawImage(img, 0, 0, width, height);
             // update the current filter option accordingly
