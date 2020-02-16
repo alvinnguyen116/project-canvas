@@ -3,9 +3,6 @@ export const FILTER_OPTION = {
     SEPIA: "Sepia",
     GRAYSCALE: "Grayscale",
     INVERT: "Invert",
-    RED: "Remove Red",
-    GREEN: "Remove Green",
-    BLUE: "Remove Blue",
     OPACITY: "Lighten"
 };
 

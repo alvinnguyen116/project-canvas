@@ -1,10 +1,10 @@
 # Online Image Filtering
-Easily apply common filter to images on the web. 
+Easily filter an image from a web browser. 
 1) Upload an image 
-2) Select a filter
-3) Download filtered image 
+2) Select from a list of filters
+3) Download the new image 
 
-You can find this project on [Heroku](https://ui-project-canvas.herokuapp.com/).
+Check out this project on [Heroku](https://ui-project-canvas.herokuapp.com/).
 
 ## Installation 
 To run this application locally, clone the github repository and download the node modules 

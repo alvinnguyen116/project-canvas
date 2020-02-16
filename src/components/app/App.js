@@ -8,7 +8,7 @@ import {FILTER_OPTION, FORM_OPTION} from "./enums";
 
 function App() {
     const INITIAL_FILENAME_STATE = "Choose file...";
-    // web worker is not natively supported in CRA (create-react-app)
+    // web worker is not natively supported in a CRA (create-react-app)
     // work-around: https://medium.com/@danilog1905/how-to-use-web-workers-with-react-create-app-and-not-ejecting-in-the-attempt-3718d2a1166b
     const worker = new FilterImageDataWorker();
 
@@ -105,11 +105,12 @@ function App() {
         img.addEventListener("load", () => {
             const canvas = canvasRef.current;
             const context = canvas.getContext("2d");
-            const {height, width} = img;
+            const {width, height} = img;
             // adjust canvas's dimensions to image's
-            canvas.height = height;
             canvas.width = width;
-            // TODO: set canvas height to a ratio of img.
+            canvas.height = height;
+            canvas.style.width = `${width}px`;
+            canvas.style.height = `${height}px`;
             // draw final img in top left corner of canvas
             context.drawImage(img, 0, 0, width, height);
             // update the current filter option accordingly
@@ -153,7 +154,8 @@ function App() {
                     <HTMLSelect
                         iconProps={{icon: IconNames.FILTER_LIST}}
                         data-form-option={FORM_OPTION.SELECT}
-                        value={currentFilterOption}
+                        text={currentFilterOption}
+                        className={"select"}
                         onChange={handleOnChange}
                         elementRef={selectRef}>
                         {
@@ -165,7 +167,7 @@ function App() {
                     </HTMLSelect>
                     {renderDownloadButton()}
                 </div>
-                <canvas ref={canvasRef}/>
+                <canvas ref={canvasRef} style={{height: "400px", width: "400px"}}/>
             </main>
         </div>
     );
