@@ -6,7 +6,7 @@ import "@blueprintjs/core/lib/css/blueprint.css";
 import FilterImageDataWorker from "./filterImageData.worker";
 import {FILTER_OPTION, FORM_OPTION} from "./enums";
 
-function App() {
+     function App() {
     const INITIAL_FILENAME_STATE = "Choose file...";
     // web worker is not natively supported in a CRA (create-react-app)
     // work-around: https://medium.com/@danilog1905/how-to-use-web-workers-with-react-create-app-and-not-ejecting-in-the-attempt-3718d2a1166b
@@ -37,10 +37,10 @@ function App() {
         const context = canvas.getContext("2d");
         if (imageData === null) return; // image not yet uploaded
         worker.postMessage({currentFilterOption, imageData});
-        worker.addEventListener("message", e => {
+        worker.addEventListener("message", ({data}) => {
             clearCanvas();
             // draw new filtered image starting from top left corner
-            context.putImageData(e.data, 0, 0);
+            context.putImageData(data, 0, 0);
             setDownloadLink(canvas.toDataURL());
         });
     }, [currentFilterOption]);
@@ -106,17 +106,15 @@ function App() {
             const canvas = canvasRef.current;
             const context = canvas.getContext("2d");
             const {width, height} = img;
-            // adjust canvas's dimensions to image's
-            canvas.width = width;
-            canvas.height = height;
-            canvas.style.width = `${width}px`;
-            canvas.style.height = `${height}px`;
+            const aspectRatio = height/width;
+            // adjust canvas's dimensions
+            canvas.height = canvas.width * aspectRatio;
             // draw final img in top left corner of canvas
-            context.drawImage(img, 0, 0, width, height);
+            context.drawImage(img, 0, 0, width, height, 0, 0, canvas.width, canvas.height);
             // update the current filter option accordingly
             selectRef.current.value = FILTER_OPTION.NONE;
             // store imageData for filtering logic
-            setImageData(context.getImageData(0,0, width, height));
+            setImageData(context.getImageData(0,0, canvas.width, canvas.height));
         });
     }
 
@@ -159,18 +157,15 @@ function App() {
                         onChange={handleOnChange}
                         elementRef={selectRef}>
                         {
-                            Object.entries(FILTER_OPTION)
-                                .map(([key,value]) =>
-                                    <option key={value} value={value}>{value}</option>
-                                )
+                            Object.values(FILTER_OPTION)
+                                .map(value => <option key={value} value={value}>{value}</option>)
                         }
                     </HTMLSelect>
                     {renderDownloadButton()}
                 </div>
-                <canvas ref={canvasRef} style={{height: "400px", width: "400px"}}/>
+                <canvas ref={canvasRef} width="400" height="400"/>
             </main>
         </div>
     );
 }
-
 export default App;
