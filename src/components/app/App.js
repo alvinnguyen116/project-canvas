@@ -6,7 +6,7 @@ import "@blueprintjs/core/lib/css/blueprint.css";
 import FilterImageDataWorker from "./filterImageData.worker";
 import {FILTER_OPTION, FORM_OPTION} from "./enums";
 
-     function App() {
+function App() {
     const INITIAL_FILENAME_STATE = "Choose file...";
     // web worker is not natively supported in a CRA (create-react-app)
     // work-around: https://medium.com/@danilog1905/how-to-use-web-workers-with-react-create-app-and-not-ejecting-in-the-attempt-3718d2a1166b
@@ -44,7 +44,7 @@ import {FILTER_OPTION, FORM_OPTION} from "./enums";
             setDownloadLink(canvas.toDataURL());
         });
     }, [currentFilterOption]);
-
+    
     /**
      * @desc Draws a blank rect onto the canvas
      * to erase the current image.
@@ -65,7 +65,7 @@ import {FILTER_OPTION, FORM_OPTION} from "./enums";
         const {formOption} = e.target.dataset;
         switch (formOption) {
             case FORM_OPTION.INPUT:
-                const {files} = inputRef.current;
+                const {files} = e.target;
                 if (files && files[0]) {
                     readFileAsDataUrl(files[0], drawImageOnCanvas);
                 }
@@ -145,6 +145,7 @@ import {FILTER_OPTION, FORM_OPTION} from "./enums";
                             type={"file"}
                             accept="image/png, image/jpeg"
                             data-form-option={FORM_OPTION.INPUT}
+                            data-testid={FORM_OPTION.INPUT}
                             ref={inputRef}
                             onChange={handleOnChange}/>
                         <span className="bp3-file-upload-input">{fileName}</span>
@@ -152,6 +153,7 @@ import {FILTER_OPTION, FORM_OPTION} from "./enums";
                     <HTMLSelect
                         iconProps={{icon: IconNames.FILTER_LIST}}
                         data-form-option={FORM_OPTION.SELECT}
+                        data-testid={FORM_OPTION.SELECT}
                         text={currentFilterOption}
                         className={"select"}
                         onChange={handleOnChange}
@@ -163,7 +165,7 @@ import {FILTER_OPTION, FORM_OPTION} from "./enums";
                     </HTMLSelect>
                     {renderDownloadButton()}
                 </div>
-                <canvas ref={canvasRef} width="400" height="400"/>
+                <canvas ref={canvasRef} width={400} height={400}/>
             </main>
         </div>
     );

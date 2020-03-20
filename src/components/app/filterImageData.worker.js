@@ -1,6 +1,6 @@
 import {FILTER_OPTION} from "./enums";
 
-const optionToFunctionMap = new Map([
+export const optionToFunctionMap = new Map([
     [FILTER_OPTION.SEPIA, sepiaFilterByPixel],
     [FILTER_OPTION.GRAYSCALE, grayscaleFilterByPixel],
     [FILTER_OPTION.INVERT, invertFilterByPixel],
@@ -14,7 +14,7 @@ const optionToFunctionMap = new Map([
  * If filter option is not none, filter the image data
  * by the given option for every pixel.
  */
-function getFilteredImageData(option, imageData) {
+export function getFilteredImageData(option, imageData) {
     if (option !== FILTER_OPTION.NONE) {
         const {data} = imageData;
         const filterFn = optionToFunctionMap.get(option);
@@ -35,7 +35,7 @@ function getFilteredImageData(option, imageData) {
 //  representing the new filtered pixel.
 
 // https://www.techrepublic.com/blog/how-do-i/how-do-i-convert-images-to-grayscale-and-sepia-tone-using-c/
-function sepiaFilterByPixel(r, g, b, a) {
+export function sepiaFilterByPixel(r, g, b, a) {
     const newR = colorify((r * .393) + (g * .769) + (b * .189));
     const newG = colorify((r * .349) + (g * .686) + (b * .168));
     const newB = colorify((r * .272) + (g * .534) + (b * .131));
@@ -63,7 +63,7 @@ function opacityFilterByPixel(r, g, b, a) {
  * Rounds and bounds a number into a valid
  * integer for colors.
  */
-function colorify(num) {
+export function colorify(num) {
     num = Math.round(num);
     if (num < 0) {
         return 0;
